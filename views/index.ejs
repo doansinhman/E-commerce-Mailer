@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Node Mailer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <script src="/javascripts/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css'>
+    <script src="/javascripts/sweetalert.min.js"></script>
+  </head>
+  <body>
+    <h1>NodeMailer</h1>
+    <p></p>
+
+    <% if (message) { %>
+      <div class="alert alert-warning alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <%=message%>
+      </div>
+    <% } %>
+    
+    <form action="/" method="POST">
+      <div class="form-group">
+        <label for="email">Send to:</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+        <label for="subject">Subject:</label>
+        <input type="subject" class="form-control" id="subject" name="subject" placeholder="Enter subject" required>
+      </div>
+      <label class="radio-inline"><input type="radio" name="type" value="raw" checked>Raw text</label>
+      <!-- <label class="radio-inline"><input type="radio" name="type" value="html">HTML</label> -->
+      <br>
+      <label for="content">Content:</label>
+      <textarea class="form-control" rows="5" id="content" name="content" required></textarea>
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </body>
+</html>

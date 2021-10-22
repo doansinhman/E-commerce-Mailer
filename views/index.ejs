@@ -14,22 +14,18 @@
   <body>
     <h1>NodeMailer</h1>
     <p></p>
-
-    <% if (message) { %>
-      <div class="alert alert-warning alert-dismissible">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <%=message%>
-      </div>
-    <% } %>
-    
-    <form action="/" method="POST">
+    <form id="myForm">
       <div class="form-group">
         <label for="email">Send to:</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+        <label for="subject">Cc:</label>
+        <input type="subject" class="form-control" id="cc" name="cc" placeholder="abc@example.com, xyz@example.com">
+        <label for="subject">Bcc:</label>
+        <input type="subject" class="form-control" id="bcc" name="bcc" placeholder="abc@example.com, xyz@example.com">
         <label for="subject">Subject:</label>
         <input type="subject" class="form-control" id="subject" name="subject" placeholder="Enter subject" required>
       </div>
-      <label class="radio-inline"><input type="radio" name="type" value="raw" checked>Raw text</label>
+      <label class="radio-inline"><input type="radio" id="type" name="type" value="raw" checked>Raw text</label>
       <!-- <label class="radio-inline"><input type="radio" name="type" value="html">HTML</label> -->
       <br>
       <label for="content">Content:</label>
@@ -37,4 +33,24 @@
       <button type="submit" class="btn btn-primary">Send</button>
     </form>
   </body>
+
+  <script>
+    $("#myForm").submit(function (e) {
+      e.preventDefault();
+      $.post("/", {
+          email: $("#email").val(),
+          cc: $("#cc").val(),
+          bcc: $("#bcc").val(),
+          subject: $("#subject").val(),
+          type: $("#type").val(),
+          content: $("#content").val()
+        },
+        function(message, status) {
+          console.log(message);
+          if (message.includes("OK")) {
+            alert("Success");
+          }
+        });
+    });
+  </script>
 </html>

@@ -20,10 +20,17 @@ router.post('/', function(req, res, next) {
   console.log(req.body);
 
   var mailOptions = {
-    from: 'e.commerce.211.hcmut@gmail.com',
+    from: '"E-commerce" <e.commerce.211.hcmut@gmail.com>',
     to: req.body.email,
     subject: req.body.subject,
   };
+
+  if (req.body.cc) {
+    mailOptions.cc = req.body.cc.split(',').map(mail => mail.trim());
+  }
+  if (req.body.bcc) {
+    mailOptions.bcc = req.body.bcc.split(',').map(mail => mail.trim());
+  }
 
   if (req.body.type == 'raw') {
     mailOptions.text = req.body.content;
@@ -38,14 +45,11 @@ router.post('/', function(req, res, next) {
       console.log('Email sent: ' + info.response);
     }
 
-    let option = {};
-    option.isError = error != null;
-    if (option.isError) {
-      option.message = str(error);
+    if (error != null) {
+      res.json(str(error));
     } else {
-      option.message = info.response;
+      res.json(info.response);
     }
-    res.render('index', option)
   });
 });
 

@@ -47,7 +47,7 @@
         },
         function(message, status) {
           console.log(message);
-          if (message.includes("OK")) {
+          if (message.toString().includes("OK")) {
             alert("Success");
           }
         });

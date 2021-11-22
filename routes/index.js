@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) {
 
   var mailOptions = {
     from: '"E-commerce" <e.commerce.211.hcmut@gmail.com>',
-    to: req.body.email,
+    to: req.body.email.split(',').map(mail => mail.trim()),
     subject: req.body.subject,
   };
 

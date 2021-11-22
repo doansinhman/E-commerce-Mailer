@@ -35,7 +35,8 @@ router.post('/', function(req, res, next) {
   if (!req.body.type || req.body.type == 'raw') {
     mailOptions.text = req.body.content;
   } else {
-    mailOptions.html == req.body.content;
+    mailOptions.text = req.body.content.replace(/<[^>]*>?/gm, '');
+    mailOptions.html = req.body.content;
   }
   
   transporter.sendMail(mailOptions, function(error, info) {

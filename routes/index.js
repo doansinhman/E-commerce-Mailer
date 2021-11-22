@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
     mailOptions.bcc = req.body.bcc.split(',').map(mail => mail.trim());
   }
 
-  if (req.body.type == 'raw') {
+  if (!req.body.type || req.body.type == 'raw') {
     mailOptions.text = req.body.content;
   } else {
     mailOptions.html == req.body.content;
@@ -45,8 +45,8 @@ router.post('/', function(req, res, next) {
       console.log('Email sent: ' + info.response);
     }
 
-    if (error != null) {
-      res.json(str(error));
+    if (error) {
+      res.json(error);
     } else {
       res.json(info.response);
     }
